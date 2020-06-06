@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class SequenceFileConnector {
     
-    private static final String OUTPUT_FILE = MainApp.getProps()
+    private static final String OUTPUT_FILE = Orchestrator.getProps()
             .getProperty("file.output_file", "src/main/resources/output.csv");
     
     

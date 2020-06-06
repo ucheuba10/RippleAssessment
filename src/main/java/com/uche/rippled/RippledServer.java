@@ -5,17 +5,15 @@
  */
 package com.uche.rippled;
 
-import com.uche.rippleassessment.MainApp;
-import com.uche.rippleassessment.SequenceFileConnector;
-import java.io.IOException;
-import java.util.Date;
+import com.uche.rippleassessment.Orchestrator;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -29,46 +27,38 @@ import org.json.simple.parser.ParseException;
 public class RippledServer {
     
     private HttpClientConnector httpConn;
-    //private static final String SERVER_URL = "http://s1.ripple.com:51234";
-    private static final String SERVER_URL = MainApp.getProps()
+
+    private static final String SERVER_URL = Orchestrator.getProps()
             .getProperty("server.url", "http://s1.ripple.com:51234");
-    private static final long POLLING_INTERVAL_MS = Integer.parseInt(MainApp.getProps()
-            .getProperty("server.polling_interval", "5000"));
-    private static final int POLL_COUNT = 20;
-    
 
     
+
     /**
-     * Fetch HTTP connector instance, create POST request then continuously poll Rippled server for data over a single connection.
-     * As data is retrieved from the server, it will be sent to a file writer and written to file
-     * @throws IOException
-     * @throws InterruptedException
-     * @throws ParseException
-     * @throws java.text.ParseException 
+     * Returns a HttpClientConnector instance
+     * @return 
      */
-    public void pollServerInfo() throws IOException, InterruptedException, ParseException, java.text.ParseException {
+    public HttpClientConnector getHttpClientConnector(){
         if(httpConn == null)
             httpConn = new HttpClientConnector();
-        CloseableHttpClient httpClient = (CloseableHttpClient)httpConn.createHttpClient();
+        return httpConn;
+    }
+    
+            
+    /**
+     * Creates a HTTP POST request and sets its headers and body
+     * @return a HTTP post instance
+     * @throws UnsupportedEncodingException 
+     */
+    public HttpPost createRequest() throws UnsupportedEncodingException {
         HttpPost post = new HttpPost(SERVER_URL);
         post.addHeader(HTTP.CONTENT_TYPE, "application/json");
         post.addHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_KEEP_ALIVE);
-        post.setEntity(new StringEntity(createServerInfoBody()));        
+        post.setEntity(new StringEntity(createServerInfoBody())); 
         
-        try {
-            String result;
-            int count = 0;
-            while(count < POLL_COUNT){
-                result = httpConn.executeClient(httpClient, post);
-                SequenceFileConnector.writeToFile(parseServerInfoResponse(result));
-                Thread.sleep(POLLING_INTERVAL_MS);
-                count++;
-            }
-            Logger.getLogger(RippledServer.class.getName()).log(Level.INFO, "Polling completed");
-        }finally{
-            httpClient.close();
-        }
+        return post;
     }
+    
+  
     
     /**
      * Creates JSON message for the server_info command
@@ -84,13 +74,14 @@ public class RippledServer {
         return json.toString();
     }
     
+    
     /**
      * Parse a properly formatted JSON response and extract the <time> and <validated_ledger.seq> elements
      * @param json A JSON formatted string to parse
      * @return a delimited string of time and sequence
      * @throws ParseException Thrown if unable to parse JSON payload
      */
-    private String parseServerInfoResponse(String json) throws ParseException, java.text.ParseException {
+    public String parseServerInfoResponse(String json) throws ParseException, java.text.ParseException {
         String ret = "";
         JSONObject jo = (JSONObject)new JSONParser().parse(json);
         Map result = (Map)jo.get("result");

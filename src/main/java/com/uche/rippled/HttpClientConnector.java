@@ -11,12 +11,13 @@ package com.uche.rippled;
  */
 
 
-
-import com.uche.rippleassessment.MainApp;
+import com.uche.rippleassessment.Orchestrator;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.io.IOException;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import java.io.IOException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -54,7 +55,7 @@ public class HttpClientConnector {
      * @return default configuration
      */
     public RequestConfig getDefaultConfig(){
-        int timeout = Integer.parseInt(MainApp.getProps().getProperty("connection.timeout"));
+        int timeout = Integer.parseInt(Orchestrator.getProps().getProperty("connection.timeout"));
         RequestConfig defaultRequestConfig = RequestConfig.custom()
             .setSocketTimeout(timeout)
             .setConnectTimeout(timeout)
@@ -80,6 +81,7 @@ public class HttpClientConnector {
             public String handleResponse(final HttpResponse response) 
                     throws ClientProtocolException, IOException {
                 int status = response.getStatusLine().getStatusCode();
+                Logger.getLogger(RippledServer.class.getName()).log(Level.INFO, "HTTP status: {0}", status);
                 if (status >= 200 && status < 300) {
                     HttpEntity entity = response.getEntity();
                     return entity != null ? EntityUtils.toString(entity) : null;
@@ -98,8 +100,8 @@ public class HttpClientConnector {
     ConnectionKeepAliveStrategy myStrategy = new ConnectionKeepAliveStrategy() {
         @Override
         public long getKeepAliveDuration(HttpResponse hr, HttpContext hc) {
-//            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            return Integer.parseInt(MainApp.getProps().getProperty("connection.keep_alive"));
+//            throw new UnsupportedOperationException("Not supported yet."); 
+            return Integer.parseInt(Orchestrator.getProps().getProperty("connection.keep_alive"));
         }
     };
     
