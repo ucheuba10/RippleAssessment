@@ -31,9 +31,9 @@ The `SequenceFileConnector` is used to append a string as a new line to the end 
 
 ### Orchestrator:
 The `Orchestrator` manages the flow of the integration. At a high level, the steps taken are:
-    * Instantiating a HTTP client to connect with the rippled server
-    * Create a HTTP POST request for the `server_info` RPC call
-    * Polls the rippled server for data, by sending the HTTP POST request at intervals over the HTTP client connection. 
+* Instantiating a HTTP client to connect with the rippled server
+* Create a HTTP POST request for the `server_info` RPC call
+* Polls the rippled server for data, by sending the HTTP POST request at intervals over the HTTP client connection. 
 The interval for polling is configurable in the properties file with parameter `server.polling_interval_ms`. The value is in milliseconds. 
-    * Parse each the response received, extract the fields `time` and `validated_ledger.seq` and format into a new delimited line
-    * Send the new line to the `SequenceFileConnector` to be written to file
+* Parse each the response received, extract the fields `time` and `validated_ledger.seq` and format into a new delimited line
+* Send the new line to the `SequenceFileConnector` to be written to file
