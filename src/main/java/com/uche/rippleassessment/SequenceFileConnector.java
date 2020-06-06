@@ -19,31 +19,31 @@ import java.util.logging.Logger;
  */
 public class SequenceFileConnector {
     
-    private static final String OUTPUT_FILE = MainApp.getProps().getProperty("file.output_file", "src/main/resources/output.csv");
+    private static final String OUTPUT_FILE = MainApp.getProps()
+            .getProperty("file.output_file", "src/main/resources/output.csv");
+    
     
     public SequenceFileConnector(){}
     
     
     /**
-     * 
-     * @param line 
+     * Write a single line to the end of a file
+     * @param line string to append to file
+     * @throws IOException When unable to close the file writer
      */
-    public static void writeToFile(String line){
-        BufferedWriter writer = null;
-        try {            
-            File outputFile = Paths.get(OUTPUT_FILE).toFile();            
-            writer = new BufferedWriter(new FileWriter(outputFile, true)); 
-            writer.append(line+"\n");
-        } catch (IOException ex) {
-            Logger.getLogger(SequenceFileConnector.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+    public static void writeToFile(String line) throws IOException {
+        if(!line.equals("")){
+            BufferedWriter writer = null;
             try {
+                File outputFile = Paths.get(OUTPUT_FILE).toFile();            
+                writer = new BufferedWriter(new FileWriter(outputFile, true)); 
+                writer.append(line+"\n");
+            }catch(IOException ex){
+                Logger.getLogger(SequenceFileConnector.class.getName()).log(Level.SEVERE, null, ex);
+            }finally{
                 if(writer != null)
                     writer.close();
-            } catch (IOException ex) {
-                Logger.getLogger(SequenceFileConnector.class.getName()).log(Level.SEVERE, null, ex);
-            }
-       }
-    }
-    
+           }
+        }
+    }    
 }

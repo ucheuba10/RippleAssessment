@@ -28,16 +28,16 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
 import org.apache.http.protocol.HttpContext;
 
-public class HttpClientConnection {
+public class HttpClientConnector {
     
     
-    public HttpClientConnection(){ }
+    public HttpClientConnector(){ }
     
     
     /**
-     * Fetch a HttpClient instance to be used in communicating with the server
+     * Fetches a HttpClient instance with configured default settings to be used in communicating with the server
      * Can be extended to provide a connection pool
-     * @return Returns an instance of HttpClient from a connection factory
+     * @return an instance of HttpClient from a connection factory
      */
     public HttpClient createHttpClient() {
         CloseableHttpClient httpClient = HttpClients.custom()
@@ -50,7 +50,7 @@ public class HttpClientConnection {
     
     
     /**
-     * Define a set of default configuration for the request
+     * Define a set of default configuration that can be applied to the client or request
      * @return default configuration
      */
     public RequestConfig getDefaultConfig(){
@@ -93,7 +93,7 @@ public class HttpClientConnection {
     
     
     /**
-     * 
+     * Custom Keep Alive handler attached to the connection to handle keep alive connection method
      */
     ConnectionKeepAliveStrategy myStrategy = new ConnectionKeepAliveStrategy() {
         @Override
@@ -104,7 +104,7 @@ public class HttpClientConnection {
     };
     
     /**
-     * 
+     * Custom retry handler attached to the connection to handle retries
      */
     HttpRequestRetryHandler myRetryHandler = new HttpRequestRetryHandler() {
         @Override

@@ -42,13 +42,15 @@ public class MainApp {
         return properties;
     }
     
+    
+    
     public static void main(String[] args) {
         try {
             getInstance();
             RippledServer server = new RippledServer();
             server.pollServerInfo();
-        } catch (IOException | InterruptedException | ParseException e) {
+        } catch (IOException | InterruptedException | ParseException |java.text.ParseException e) {
             Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, e.getMessage(), e);
-        } 
+        }
     }  
 }
