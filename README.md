@@ -27,6 +27,7 @@ The [`HttpClientConnector`](src/main/java/com/uche/rippled/HttpClientConnector.j
 (using one of the standard HTTP methods: GET, POST, PUT) to the server and handles HTTP responses returned. 
 
 <a name="file-connector"/>
+
 ### File Connector:
 The [`SequenceFileConnector`](src/main/java/com/uche/rippleassessment/SequenceFileConnector.java) is used to append a string as a new line to the end of a file. 
 
