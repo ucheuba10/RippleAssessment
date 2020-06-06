@@ -5,14 +5,15 @@ The response is then parsed to extract the `time` and `validated_ledger.seq` fie
 
 
 ## Getting Started
+
 #### Download
 Download or clone this repository
 
 #### Configuration
-The program uses a properties file located at `src/main/resources/application.properties` for configuration. 
-At the minimum, the following need to be configured:
-* `server.url` - The http URL for the rippled server
-* `file.output_file` - The absolute path to the output file that extracted response elements will be written to
+The program uses a properties file located at [`src/main/resources/application.properties`](src/main/resources/application.properties) for configuration. 
+At the minimum, the following parameters need to be configured:
+* `server.url` - The HTTP URL for the rippled server `server_info` API endpoint.
+* `file.output_file` - The absolute path to the output file that extracted response elements will be written to.
 
 #### Build
 Use Maven to build the project. This will build with relevant dependencies
@@ -21,19 +22,27 @@ Use Maven to build the project. This will build with relevant dependencies
 $ mvn -Dskip.tests=true compile
 ```
 
+
 ## Components
+
+<a name="http-connector"/>
+
 ### Http Connector:
 The [`HttpClientConnector`](src/main/java/com/uche/rippled/HttpClientConnector.java) is a configurable HTTP client implementation which is used to send HTTP requests 
 (using one of the standard HTTP methods: GET, POST, PUT) to the server and handles HTTP responses returned. 
+
 
 <a name="file-connector"/>
 
 ### File Connector:
 The [`SequenceFileConnector`](src/main/java/com/uche/rippleassessment/SequenceFileConnector.java) is used to append a string as a new line to the end of a file. 
 
+
+<a name="orchestrator"/>
+
 ### Orchestrator:
 The [`Orchestrator`](src/main/java/com/uche/rippleassessment/Orchestrator.java) manages the flow of the integration. At a high level, the steps taken are:
-* Instantiating a HTTP client to connect with the rippled server. The client is created with a response, 
+* Instantiating a [HTTP client](#http-connector) to connect with the rippled server. The client is created with a response, 
 retry and keep-alive handler.
 * Create a HTTP POST request for the `server_info` RPC call. Necessary headers and body are set for the request 
 * Polls the rippled server for data, by sending the HTTP POST request at intervals over the HTTP client connection. 
