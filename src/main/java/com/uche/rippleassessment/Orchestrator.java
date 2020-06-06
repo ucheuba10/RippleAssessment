@@ -31,23 +31,14 @@ public class Orchestrator {
         try {
             properties = new Properties();
             properties.load(getClass().getClassLoader().getResourceAsStream("application.properties"));
-            rServer = new RippledServer();  
             pollingIntervalMs = Long.parseLong(properties.getProperty("server.polling_interval_ms", "2000"));
             pollCount = Integer.parseInt(properties.getProperty("server.poll_count", "10"));
+            rServer = new RippledServer();  
         } catch (IOException e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
         }
     }   
 
-    
-    /**
-     * Fetches properties object
-     * @return 
-     */
-    public static Properties getProps(){        
-        return properties;
-    }
-    
     
     
     /**
@@ -59,9 +50,9 @@ public class Orchestrator {
      * @throws java.text.ParseException 
      */
     public void pollServerInfo() throws IOException, InterruptedException, ParseException, java.text.ParseException {
-
-        HttpPost post = rServer.createRequest();
+        
         CloseableHttpClient httpClient = (CloseableHttpClient)rServer.getHttpClientConnector().createHttpClient();
+        HttpPost post = rServer.createRequest();
         
         try {
             String result;
@@ -79,6 +70,14 @@ public class Orchestrator {
     }
     
     
+    /**
+     * Fetches properties object
+     * @return 
+     */
+    public static Properties getProps(){        
+        return properties;
+    }
+    
     
     public static Orchestrator getInstance() {
         return OrchestratorHolder.INSTANCE;
@@ -93,7 +92,7 @@ public class Orchestrator {
     public static void main(String[] args) {
         try {
             getInstance().pollServerInfo();
-        } catch (IOException | InterruptedException | ParseException |java.text.ParseException e) {
+        } catch (IOException | InterruptedException | ParseException | java.text.ParseException e) {
             Logger.getLogger(Orchestrator.class.getName()).log(Level.SEVERE, e.getMessage(), e);
         }
     }  
