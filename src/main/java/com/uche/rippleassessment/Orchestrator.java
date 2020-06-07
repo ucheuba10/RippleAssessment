@@ -56,6 +56,7 @@ public class Orchestrator {
         HttpPost post = rServer.createRequest();
         
         try {
+            Logger.getLogger(RippledServer.class.getName()).log(Level.INFO, "Polling Started");
             String result;
             int count = 0;
             while(count < pollCount){
@@ -64,12 +65,13 @@ public class Orchestrator {
                 Thread.sleep(pollingIntervalMs);
                 count++;
             }
+            Logger.getLogger(RippledServer.class.getName()).log(Level.INFO, "Polling Completed");
+            
             //Enhancement to calculate min, max and average time
-            System.out.println(
-                    "\t Min Time(ms): "+calculateStats.getTimeMin()
+            System.out.println("\t Validation Time Stats:::"
+                    +": Min Time(ms): "+calculateStats.getTimeMin()
                     +", Max Time(ms): "+calculateStats.getTimeMax()
                     +", Avg Time(ms): "+calculateStats.getTimeAvg());
-            Logger.getLogger(RippledServer.class.getName()).log(Level.INFO, "Polling completed");
         }finally{
             httpClient.close();
         }

@@ -56,8 +56,6 @@ public class CalculateStats {
         timeSequenceMap.put(d.getTime(), seq);
         
         if(mSecPrev == 0 && seqPrev == 0){//First in the sequence
-//            mSecPrev = d.getTime();
-//            seqPrev = seq;
             seqDiffMin = 0;
             seqDiffMax = seq;
         }else{
@@ -78,8 +76,9 @@ public class CalculateStats {
                 seqDiffMax = (seq - seqPrev);
                 timeMax = (d.getTime() - mSecPrev)/seqDiffMax;
             }
-            System.out.println("\t Duration: "+(d.getTime() - mSecPrev)+", Sequence: "+(seq - seqPrev));
-            System.out.println("\t Min Time(ms): "+timeMin+", Max Time(ms): "+timeMax);
+            System.out.println("\t Poll Duration(ms): "+(d.getTime() - mSecPrev)
+                    +", New Sequences: "+(seq - seqPrev));
+//            System.out.println("\t Min Time(ms): "+timeMin+", Max Time(ms): "+timeMax);
         }
         mSecPrev = d.getTime();
         seqPrev = seq;
@@ -100,7 +99,7 @@ public class CalculateStats {
             long totalSeq = (Long)last.getValue() - (Long)first.getValue();
             long totalTime = (Long)last.getKey() - (Long)first.getKey();
             timeAvg = (totalSeq > 0) ? totalTime/totalSeq : 0;
-            System.out.println("\t Average Time(ms): "+timeAvg);             
+            System.out.println("\t Cummulative Average Time(ms): "+timeAvg);
         }
     }
 }
