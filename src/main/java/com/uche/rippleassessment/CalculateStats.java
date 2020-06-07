@@ -20,10 +20,26 @@ public class CalculateStats {
     private long seqPrev = 0; 
     private long seqDiffMin;
     private long seqDiffMax;
-    private float timeMax;
     private float timeMin;
+    private float timeMax;
     private float timeAvg;
     Map<Long, Long> timeSequenceMap;
+    
+    
+    public CalculateStats(){}
+    
+    
+    public float getTimeMin(){
+        return timeMin;
+    }
+    
+    public float getTimeMax(){
+        return timeMax;
+    }
+    
+    public float getTimeAvg(){
+        return timeAvg;
+    }
     
     
     /**
@@ -70,7 +86,8 @@ public class CalculateStats {
     }
     
     /**
-     * Iterate through the map to get the first and last entries and use to calculate average time
+     * Iterate through the map of time and sequence for each data point to get the 
+     * first and last entries and use to calculate average time
      */
     public void calcAverageTime(){
         if(timeSequenceMap != null && !timeSequenceMap.isEmpty()){
