@@ -42,6 +42,15 @@ The [`HttpClientConnector`](src/main/java/com/uche/rippled/HttpClientConnector.j
 The [`SequenceFileConnector`](src/main/java/com/uche/rippleassessment/SequenceFileConnector.java) is used to append a string as a new line to the end of a file. 
 
 
+<a name="data-transformation"/>
+
+### Data Transformation:
+The [`RippledServer`](src/main/java/com/uche/rippled/RippledServer.java) handles data format for communicating with the server. 
+* It creates the JSON payload for sending to the API
+* Parses the JSON response and transforms to the delimited text for writing to file.
+* Provides data that is run through an algorithm method(src/main/java/com/uche/rippleassessment/CalculateStats.java) to calculate ledger validation time statistics (Min, Max, Average).
+
+
 <a name="orchestrator"/>
 
 ### Orchestrator:
@@ -51,5 +60,5 @@ retry and keep-alive handler.
 * Create a HTTP POST request for the `server_info` RPC call. Necessary headers and body are set for the request 
 * Polls the rippled server for data, by sending the HTTP POST request at intervals over the HTTP client connection. 
 (The interval for polling is configurable in the properties file with parameter `server.polling_interval_ms`. The value is in milliseconds.)
-* Parse each response received, extract the fields `time` and `validated_ledger.seq` and format into a new delimited line
+* Parse each response received, extract the fields `time` and `validated_ledger.seq` and format into a new delimited line using the [Data Transformation](#data-transformation)
 * Send the new line to the [File Connector](#file-connector) to be written to file
