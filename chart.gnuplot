@@ -7,9 +7,9 @@
 ##############################################################################
 set datafile separator ","
 #set terminal png size 900,400
-set title "Validated Ledger Sequence"
-set ylabel "Sequence Num Per Time"
-set xlabel "Date/Time"
+set title "Validated Ledger Sequence Per Time"
+set ylabel "Sequence Number"
+set xlabel "Time"
 set xtic auto rotate 
 set xdata time
 set timefmt "%H:%M:%S"
