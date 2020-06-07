@@ -22,7 +22,9 @@ Additional useful configurations include:
 #### Build and Run
 Use Maven to build and run the project. This will build with relevant dependencies.
 > You can use the IDE of your choice
+
 > The main class is com.uche.rippleassment.Orchestrator
+
 > When program is running, it displays statistics to console
 
 ```shell
