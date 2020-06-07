@@ -14,7 +14,7 @@ The program uses a properties file located at [`src/main/resources/application.p
 At the minimum, the following parameters need to be configured:
 * `server.url` - The HTTP URL for the rippled server `server_info` API endpoint.
 * `file.output_file` - The absolute path to the output file that extracted response elements will be written to.
-* Update the file path for csv data file in the `chart.gnuplot` script to reference the output same file.
+* Update the file path for csv data file in the `chart.gnuplot` script to reference the same output file.
 
 Additional useful configurations include:
 * `server.polling_interval_ms` - The interval in milliseconds to poll the server for data.
