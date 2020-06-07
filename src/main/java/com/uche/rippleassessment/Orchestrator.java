@@ -64,6 +64,11 @@ public class Orchestrator {
                 Thread.sleep(pollingIntervalMs);
                 count++;
             }
+            //Enhancement to calculate min, max and average time
+            System.out.println(
+                    "\t Min Time(ms): "+calculateStats.getTimeMin()
+                    +", Max Time(ms): "+calculateStats.getTimeMax()
+                    +", Avg Time(ms): "+calculateStats.getTimeAvg());
             Logger.getLogger(RippledServer.class.getName()).log(Level.INFO, "Polling completed");
         }finally{
             httpClient.close();
