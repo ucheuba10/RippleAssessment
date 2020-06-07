@@ -70,6 +70,15 @@ public class Orchestrator {
         }
     }
     
+    /**
+     * Call algorithm to calculate Min, Max and Average time for the ledger validation
+     */
+    private CalculateStats calculateStats = new CalculateStats();
+    public void calcTimeStats(Date d, long seq){
+        calculateStats.calcMinMaxTime(d, seq);
+        calculateStats.calcAverageTime();
+    }
+    
     
     /**
      * Fetches properties object
@@ -97,12 +106,4 @@ public class Orchestrator {
             Logger.getLogger(Orchestrator.class.getName()).log(Level.SEVERE, e.getMessage(), e);
         }
     }  
-    
-    /**
-     * Call algorithm to calculate Min, Max and Average time for the ledger validation
-     */
-    private CalculateStats calculateStats = new CalculateStats();
-    public void calcTimeStats(Date d, long seq){
-        calculateStats.calsStats(d, seq);
-    }
 }
