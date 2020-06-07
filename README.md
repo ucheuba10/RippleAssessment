@@ -35,7 +35,7 @@ $ mvn -Dfile.encoding=UTF-8 install install
 $ mvn -Dexec.args="-classpath %classpath com.uche.rippleassessment.Orchestrator" -Dexec.executable=java.exe 
 ```
 
-**Plotting Chart**
+#### Plotting Chart
 After running the java program, run the `chart.gnuplot` script from the gnuplot console to plot a chart with the generated data.
 (This requires gnuplot to already be installed and in your class path)
 
