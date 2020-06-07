@@ -62,7 +62,7 @@ public class Orchestrator {
             while(count < pollCount){
                 result = rServer.getHttpClientConnector().executeClient(httpClient, post);
                 SequenceFileConnector.writeToFile(rServer.parseServerInfoResponse(result));
-                Thread.sleep(pollingIntervalMs);
+                Thread.sleep(pollingIntervalMs); 
                 count++;
             }
             Logger.getLogger(RippledServer.class.getName()).log(Level.INFO, "Polling Completed");
