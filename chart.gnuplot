@@ -1,3 +1,9 @@
+##############################################################################
+## Plots a chart to display the frequency of validated ledgers over time    ##
+## Usage:                                                                   ##
+## 1. Update the path below to reference the output file with records       ##
+## 2. Run from gnuplot terminal with command load 'chart.gnuplot'           ##
+##############################################################################
 set datafile separator ","
 #set terminal png size 900,400
 set title "Validated Ledger Sequence"
@@ -8,8 +14,7 @@ set xdata time
 set timefmt "%H:%M:%S"
 set format x "%H:%M:%S"
 set format y "%0.0f"
-#; set ytics(123456789)
 set key left top
 set grid
-plot 'F:\Backup\Documents\NetBeansProjects\RippleAssessment\src\main\resources\output\output.csv' \
-using 1:2 with linespoints title 'Seq'
+plot 'src\main\resources\output\output.csv' \
+using 1:2 with linespoints title 'Sequence'
