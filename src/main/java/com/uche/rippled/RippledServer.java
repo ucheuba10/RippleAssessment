@@ -97,7 +97,7 @@ public class RippledServer {
                 ret = time+","+seq;
                 
                 //Enhancement to calculate min, max and average time
-                new CalculateStats().calsStats(d, Long.parseLong(seq));
+                Orchestrator.getInstance().calcTimeStats(d, Long.parseLong(seq));
             }
         }else{
             String msg = "Invalid response. Error Code:"+result.get("error_code")
