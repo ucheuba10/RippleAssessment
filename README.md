@@ -48,7 +48,6 @@ The [`SequenceFileConnector`](src/main/java/com/uche/rippleassessment/SequenceFi
 The [`RippledServer`](src/main/java/com/uche/rippled/RippledServer.java) handles data format for communicating with the server. 
 * It creates the JSON payload for sending to the API
 * Parses the JSON response and transforms to the delimited text for writing to file.
-* Provides data that is run through an [algorithm method](src/main/java/com/uche/rippleassessment/CalculateStats.java) to calculate ledger validation time statistics (Min, Max, Average).
 
 
 <a name="orchestrator"/>
@@ -62,3 +61,4 @@ retry and keep-alive handler.
 (The interval for polling is configurable in the properties file with parameter `server.polling_interval_ms`. The value is in milliseconds.)
 * Parse each response received, extract the fields `time` and `validated_ledger.seq` and format into a new delimited line using the [Data Transformation](#data-transformation)
 * Send the new line to the [File Connector](#file-connector) to be written to file
+* In addition, the time and sequence information is run through an [algorithm method](src/main/java/com/uche/rippleassessment/CalculateStats.java) to calculate ledger validation time statistics (Min, Max, Average).
