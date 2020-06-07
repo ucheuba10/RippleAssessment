@@ -5,6 +5,7 @@
  */
 package com.uche.rippled;
 
+import com.uche.rippleassessment.CalculateStats;
 import com.uche.rippleassessment.Orchestrator;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -76,7 +77,8 @@ public class RippledServer {
     
     
     /**
-     * Parse a properly formatted JSON response and extract the <time> and <validated_ledger.seq> elements
+     * Parse a properly formatted JSON response and extract the <i>time</i> and <i>validated_ledger.seq</i> elements
+     * Supplies data to algorithm that calculates Min, Max and Average time for ledger validation
      * @param json A JSON formatted string to parse
      * @return a delimited string of time and sequence
      * @throws ParseException Thrown if unable to parse JSON payload
@@ -93,6 +95,9 @@ public class RippledServer {
                 String time = new SimpleDateFormat("HH:mm:ss").format(d);
                 String seq = vLedger.get("seq").toString();
                 ret = time+","+seq;
+                
+                //Enhancement to calculate min, max and average time
+                new CalculateStats().calsStats(d, Long.parseLong(seq));
             }
         }else{
             String msg = "Invalid response. Error Code:"+result.get("error_code")
