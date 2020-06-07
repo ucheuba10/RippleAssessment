@@ -31,16 +31,17 @@ $ cd /path/to/RippleAssessment
 $ mvn -Dfile.encoding=UTF-8 install install
 $ mvn -Dexec.args="-classpath %classpath com.uche.rippleassessment.Orchestrator" -Dexec.executable=java.exe 
 ```
-**Plotting Chart**
-```shell
-$ gnuplot> load 'chart.gnuplot'
-```
 
 > You can use the IDE of your choice
 >
 > The main class is com.uche.rippleassment.Orchestrator
 >
 > When program is running, it displays statistics to console
+
+**Plotting Chart**
+```shell
+$ gnuplot> load 'chart.gnuplot'
+```
 
 
 
