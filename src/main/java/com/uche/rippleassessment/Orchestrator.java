@@ -7,6 +7,7 @@ package com.uche.rippleassessment;
 
 import com.uche.rippled.RippledServer;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,4 +97,12 @@ public class Orchestrator {
             Logger.getLogger(Orchestrator.class.getName()).log(Level.SEVERE, e.getMessage(), e);
         }
     }  
+    
+    /**
+     * Call algorithm to calculate Min, Max and Average time for the ledger validation
+     */
+    private CalculateStats calculateStats = new CalculateStats();
+    public void calcTimeStats(Date d, long seq){
+        calculateStats.calsStats(d, seq);
+    }
 }
