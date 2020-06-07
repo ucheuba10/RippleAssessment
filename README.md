@@ -14,13 +14,17 @@ The program uses a properties file located at [`src/main/resources/application.p
 At the minimum, the following parameters need to be configured:
 * `server.url` - The HTTP URL for the rippled server `server_info` API endpoint.
 * `file.output_file` - The absolute path to the output file that extracted response elements will be written to.
+* Update the file path for csv data file in the `chart.gnuplot` script to reference the output same file.
 
 Additional useful configurations include:
 * `server.polling_interval_ms` - The interval in milliseconds to poll the server for data.
 * `server.poll_count` - Control the number of times to poll the server every time the program is run.
 
 #### Build and Run
-Use Maven to build and run the project. This will build with relevant dependencies.
+Use Maven to build and run the project. This will build with relevant dependencies. 
+
+After running the java program, run the `chart.gnuplot` script to plot a chart with the generated data.
+
 > You can use the IDE of your choice
 >
 > The main class is com.uche.rippleassment.Orchestrator
