@@ -21,7 +21,7 @@ Additional useful configurations include:
 
 #### Build
 Use Maven to build the project. This will build with relevant dependencies.
-
+> You can use the IDE of your choice
 ```shell
 $ mvn -Dskip.tests=true compile
 ```
