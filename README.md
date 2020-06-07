@@ -19,11 +19,16 @@ Additional useful configurations include:
 * `server.polling_interval_ms` - The interval in milliseconds to poll the server for data.
 * `server.poll_count` - Control the number of times to poll the server every time the program is run.
 
-#### Build
-Use Maven to build the project. This will build with relevant dependencies.
+#### Build and Run
+Use Maven to build and run the project. This will build with relevant dependencies.
 > You can use the IDE of your choice
+> The main class is com.uche.rippleassment.Orchestrator
+> When program is running, it displays statistics to console
+
 ```shell
-$ mvn -Dskip.tests=true compile
+$ cd /path/to/RippleAssessment
+$ mvn -Dfile.encoding=UTF-8 install install
+$ mvn -Dexec.args="-classpath %classpath com.uche.rippleassessment.Orchestrator" -Dexec.executable=java.exe 
 ```
 
 
