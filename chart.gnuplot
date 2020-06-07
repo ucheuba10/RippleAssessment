@@ -1,7 +1,8 @@
 ##############################################################################
 ## Plots a chart to display the frequency of validated ledgers over time    ##
 ## Usage:                                                                   ##
-## 1. Update the path below to reference the output file with records       ##
+## 1. Update the path below to reference the output file with records.      ## 
+## (This should point to the same file configured in the properties)        ##
 ## 2. Run from gnuplot terminal with command load 'chart.gnuplot'           ##
 ##############################################################################
 set datafile separator ","
