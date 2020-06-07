@@ -23,7 +23,18 @@ Additional useful configurations include:
 #### Build and Run
 Use Maven to build and run the project. This will build with relevant dependencies. 
 
-After running the java program, run the `chart.gnuplot` script to plot a chart with the generated data.
+After running the java program, run the `chart.gnuplot` script from the gnuplot console to plot a chart with the generated data.
+
+**Running Program**
+```shell
+$ cd /path/to/RippleAssessment
+$ mvn -Dfile.encoding=UTF-8 install install
+$ mvn -Dexec.args="-classpath %classpath com.uche.rippleassessment.Orchestrator" -Dexec.executable=java.exe 
+```
+**Plotting Chart**
+```shell
+$ gnuplot> load 'chart.gnuplot'
+```
 
 > You can use the IDE of your choice
 >
@@ -31,11 +42,6 @@ After running the java program, run the `chart.gnuplot` script to plot a chart w
 >
 > When program is running, it displays statistics to console
 
-```shell
-$ cd /path/to/RippleAssessment
-$ mvn -Dfile.encoding=UTF-8 install install
-$ mvn -Dexec.args="-classpath %classpath com.uche.rippleassessment.Orchestrator" -Dexec.executable=java.exe 
-```
 
 
 ## Components
