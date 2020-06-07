@@ -15,8 +15,12 @@ At the minimum, the following parameters need to be configured:
 * `server.url` - The HTTP URL for the rippled server `server_info` API endpoint.
 * `file.output_file` - The absolute path to the output file that extracted response elements will be written to.
 
+Additional useful configurations include:
+* `server.polling_interval_ms` - The interval in milliseconds to poll the server for data.
+* `server.poll_count` - Control the number of times to poll the server every time the program is run.
+
 #### Build
-Use Maven to build the project. This will build with relevant dependencies
+Use Maven to build the project. This will build with relevant dependencies.
 
 ```shell
 $ mvn -Dskip.tests=true compile
